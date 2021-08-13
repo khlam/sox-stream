@@ -12,7 +12,7 @@ module.exports = function soxStream(opts) {
 		var soxOutput = new stream.PassThrough()
 		var tmpFile = createTempFile()
 	
-		tmpFile.on('error', emitErr)
+		//tmpFile.on('error', emitErr)
 		tmpFile.on('finish', function () {
 			var args = []
 				.concat(hashToArray(opts.global || []))
@@ -30,10 +30,11 @@ module.exports = function soxStream(opts) {
 			sox.stdout.on('close', function () {
 				cleanupThenEmit('finish', null);
 			})
+			/*
 			sox.stderr.on('data', function (chunk) {
 				cleanupThenEmitErr(new Error(chunk))
 			})
-			sox.on('error', cleanupThenEmitErr)
+			sox.on('error', cleanupThenEmitErr)*/
 		})
 	
 		function cleanupThenEmit(event, data) {
